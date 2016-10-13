@@ -15,11 +15,14 @@ build.baseImage('alpine');
 build.projectName(projectName);
 build.domainName(projectName + '.localdomain');
 
-build.exposePort(53);
-build.forwardPort(53, '5353/udp');
+build.forwardPort(53, 'udp').publish(53);
+build.forwardPort(53, 'tcp').publish(53);
 
 build.startupCommand('./run.sh');
 build.shellCommand('bash');
+
+build.dockerRunArgument('--cap-add=NET_ADMIN');
+// build.runArgument('log-facility', 'log target (can not edit)', '-');
 
 build.nsgLabel(ELabelNames.alias, ['dns']);
 

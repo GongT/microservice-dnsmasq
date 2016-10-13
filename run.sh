@@ -125,15 +125,9 @@ function restart_dnsmasq {
 
 if [ "${IS_DOCKER}" == 'yes' ]; then
 	echo "working in docker"
-	syslogd -n -O - -S &
-	echo "syslogd started..."
 	HOST_FILE=/host_etc/hosts
 else
 	echo "working on host"
-	tail -n 0 -F /var/log/messages | \
-		grep --color=no --line-buffered -E 'dnsmasq\[[0-9]+\]: ' | \
-		sed --unbuffered -E 's/^.+ (dnsmasq\[[0-9]+\]: )/\1/g' &
-	echo "tail /var/log/messages..."
 	HOST_FILE=/etc/hosts
 fi
 
@@ -142,7 +136,9 @@ watch 1 "modify" "restart_dnsmasq" ${HOST_FILE}
 while [ "${RESTARTING}" == "yes" ]
 do
 	RESTARTING=
-	dnsmasq -2 --no-daemon --keep-in-foreground &
+	
+	dnsmasq --log-facility=- --port=53 --keep-in-foreground &
+	
 	echo -n $! >/tmp/dnsmasq.pid
 	echo "dnsmasq running: $(<${SERVICE_PID_FILE})"
 	
