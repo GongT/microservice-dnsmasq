@@ -1,4 +1,5 @@
-import {MicroBuildConfig, ELabelNames} from "./x/microbuild-config";
+import {MicroBuildConfig, ELabelNames, EPlugins} from "./x/microbuild-config";
+import {JsonEnv} from "../.jsonenv/_current_result.json.d.ts";
 declare const build: MicroBuildConfig;
 /*
  +==================================+
@@ -27,9 +28,11 @@ build.dockerRunArgument('--cap-add=NET_ADMIN');
 build.nsgLabel(ELabelNames.alias, ['dns']);
 
 build.environmentVariable('IS_DOCKER', 'yes');
+build.environmentVariable('IS_CHINA', JsonEnv.isInChina? 'yes' : '');
 
 build.volume('/etc', '/host_etc');
 
 build.prependDockerFile('build/install.Dockerfile');
 build.appendDockerFile('build/config.Dockerfile');
 
+build.addPlugin(EPlugins.jenv);
