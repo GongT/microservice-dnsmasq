@@ -117,7 +117,7 @@ function restart_dnsmasq {
 # watch 2 "delete,delete_self" "service_died" /tmp/xxx
 
 
-if [ "${IS_DOCKER}" == 'yes' ]; then
+if [ "${RUN_IN_DOCKER}" == 'yes' ]; then
 	echo "working in docker"
 	HOST_FILE=/data/host-etc/hosts
 else

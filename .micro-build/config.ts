@@ -29,7 +29,11 @@ build.specialLabel(ELabelNames.alias, ['dns']);
 
 build.environmentVariable('IS_CHINA', JsonEnv.isInChina? 'yes' : '');
 
+if (JsonEnv.gfw.isInChina) {
+	build.prependDockerFile('build/install-china.Dockerfile');
+}
 build.prependDockerFile('build/install.Dockerfile');
+
 build.appendDockerFile('build/config.Dockerfile');
 
 build.addPlugin(EPlugins.jenv);
