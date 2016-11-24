@@ -14,7 +14,7 @@ const projectName = 'microservice-dnsmasq';
 
 build.baseImage('alpine');
 build.projectName(projectName);
-build.domainName(projectName + '.localdomain');
+build.domainName(projectName + '.' + JsonEnv.baseDomainName);
 
 build.forwardPort(53, 'udp').publish(53);
 build.forwardPort(53, 'tcp').publish(53);
@@ -27,12 +27,13 @@ build.dockerRunArgument('--cap-add=NET_ADMIN');
 
 build.nsgLabel(ELabelNames.alias, ['dns']);
 
-build.environmentVariable('IS_DOCKER', 'yes');
-build.environmentVariable('IS_CHINA', JsonEnv.isInChina? 'yes' : '');
-
 build.volume('/etc', '/host_etc');
 
+if (JsonEnv.gfw.isInChina) {
+	build.prependDockerFile('build/install-china.Dockerfile');
+}
 build.prependDockerFile('build/install.Dockerfile');
+
 build.appendDockerFile('build/config.Dockerfile');
 
 build.addPlugin(EPlugins.jenv);
