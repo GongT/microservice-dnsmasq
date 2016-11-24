@@ -14,7 +14,7 @@ const projectName = 'microservice-dnsmasq';
 
 build.baseImage('alpine');
 build.projectName(projectName);
-build.domainName(projectName + '.localdomain');
+build.domainName(projectName + '.' + JsonEnv.baseDomainName);
 
 build.forwardPort(53, 'udp').publish(53);
 build.forwardPort(53, 'tcp').publish(53);
@@ -25,14 +25,14 @@ build.shellCommand('bash');
 build.dockerRunArgument('--cap-add=NET_ADMIN');
 // build.runArgument('log-facility', 'log target (can not edit)', '-');
 
-build.nsgLabel(ELabelNames.alias, ['dns']);
+build.specialLabel(ELabelNames.alias, ['dns']);
 
-build.environmentVariable('IS_DOCKER', 'yes');
 build.environmentVariable('IS_CHINA', JsonEnv.isInChina? 'yes' : '');
-
-build.volume('/etc', '/host_etc');
 
 build.prependDockerFile('build/install.Dockerfile');
 build.appendDockerFile('build/config.Dockerfile');
 
 build.addPlugin(EPlugins.jenv);
+
+build.dependService('host-generator', 'http://github.com/GongT/hosts-generator.git');
+build.dockerRunArgument('--volumes-from=host-generator');
