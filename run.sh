@@ -27,12 +27,6 @@ function finish {
 	exit ${1-0}
 }
 
-if [ -z "${IS_DOCKER}" ] ; then
-	HOST_TO_WATCH=/etc/hosts
-else
-	HOST_TO_WATCH=/host_etc/hosts
-fi
-
 function is_running {
 	stat /proc/${1}/exe &>/dev/null
 }
@@ -125,7 +119,7 @@ function restart_dnsmasq {
 
 if [ "${RUN_IN_DOCKER}" == 'yes' ]; then
 	echo "working in docker"
-	HOST_FILE=/host_etc/hosts
+	HOST_FILE=/data/host-etc/hosts
 else
 	echo "working on host"
 	HOST_FILE=/etc/hosts

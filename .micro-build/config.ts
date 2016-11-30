@@ -25,9 +25,9 @@ build.shellCommand('bash');
 build.dockerRunArgument('--cap-add=NET_ADMIN');
 // build.runArgument('log-facility', 'log target (can not edit)', '-');
 
-build.nsgLabel(ELabelNames.alias, ['dns']);
+build.specialLabel(ELabelNames.alias, ['dns']);
 
-build.volume('/etc', '/host_etc');
+build.environmentVariable('IS_CHINA', JsonEnv.isInChina? 'yes' : '');
 
 if (JsonEnv.gfw.isInChina) {
 	build.prependDockerFile('build/install-china.Dockerfile');
@@ -37,3 +37,6 @@ build.prependDockerFile('build/install.Dockerfile');
 build.appendDockerFile('build/config.Dockerfile');
 
 build.addPlugin(EPlugins.jenv);
+
+build.dependService('host-generator', 'http://github.com/GongT/hosts-generator.git');
+build.dockerRunArgument('--volumes-from=host-generator');
