@@ -27,14 +27,10 @@ build.dockerRunArgument('--cap-add=NET_ADMIN');
 
 build.specialLabel(ELabelNames.alias, ['dns']);
 
-build.environmentVariable('IS_CHINA', JsonEnv.isInChina? 'yes' : '');
-
-if (JsonEnv.gfw.isInChina) {
-	build.prependDockerFile('build/install-china.Dockerfile');
-}
-build.prependDockerFile('build/install.Dockerfile');
+build.environmentVariable('IS_CHINA', JsonEnv.gfw.isInChina? 'yes' : '');
 
 build.appendDockerFile('build/config.Dockerfile');
+build.volume('./etc/dnsmasq.d', '/etc/dnsmasq.d');
 
 build.addPlugin(EPlugins.jenv);
 
