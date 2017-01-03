@@ -17,6 +17,7 @@ build.projectName(projectName);
 build.domainName(projectName + '.' + JsonEnv.baseDomainName);
 
 build.isInChina(JsonEnv.gfw.isInChina, JsonEnv.gfw);
+build.systemInstallMethod('apk');
 build.systemInstall('bash');
 
 build.forwardPort(53, 'udp').publish(53);
