@@ -16,7 +16,7 @@ build.baseImage('alpine');
 build.projectName(projectName);
 build.domainName(projectName + '.' + JsonEnv.baseDomainName);
 
-build.isInChina(JsonEnv.gfw.isInChina, JsonEnv.gfw);
+build.isInChina(JsonEnv.gfw.isInChina);
 build.systemInstallMethod('apk');
 build.systemInstall('bash');
 
