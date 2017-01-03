@@ -31,8 +31,6 @@ build.dockerRunArgument('--cap-add=NET_ADMIN');
 
 build.specialLabel(ELabelNames.alias, ['dns']);
 
-build.environmentVariable('IS_CHINA', JsonEnv.gfw.isInChina? 'yes' : '');
-
 build.appendDockerFile('build/config.Dockerfile');
 build.volume('./etc/dnsmasq.d', '/etc/dnsmasq.d');
 
