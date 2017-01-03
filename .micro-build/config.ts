@@ -32,7 +32,7 @@ build.environmentVariable('IS_CHINA', JsonEnv.gfw.isInChina? 'yes' : '');
 build.appendDockerFile('build/config.Dockerfile');
 build.volume('./etc/dnsmasq.d', '/etc/dnsmasq.d');
 
-build.addPlugin(EPlugins.jenv);
+build.disablePlugin(EPlugins.jenv);
 
 build.dependService('host-generator', 'http://github.com/GongT/hosts-generator.git');
 build.dockerRunArgument('--volumes-from=host-generator');

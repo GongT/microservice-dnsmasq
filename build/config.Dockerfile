@@ -1,2 +1,2 @@
 COPY etc/* /etc/
-RUN mkdir /etc/dnsmasq.d
+RUN mkdir -p /etc/dnsmasq.d
