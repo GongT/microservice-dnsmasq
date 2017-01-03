@@ -18,7 +18,7 @@ build.domainName(projectName + '.' + JsonEnv.baseDomainName);
 
 build.isInChina(JsonEnv.gfw.isInChina);
 build.systemInstallMethod('apk');
-build.systemInstall('bash');
+build.systemInstall('bash', 'dnsmasq', 'inotify-tools');
 
 build.forwardPort(53, 'udp').publish(53);
 build.forwardPort(53, 'tcp').publish(53);
