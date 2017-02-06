@@ -35,8 +35,6 @@ build.specialLabel(ELabelNames.alias, ['dns']);
 
 build.appendDockerFile('build/config.Dockerfile');
 build.volume('./etc/dnsmasq.d', '/etc/dnsmasq.d');
+build.volume('/etc', './host-etc');
 
 build.disablePlugin(EPlugins.jenv);
-
-build.dependService('hosts-generator', 'http://github.com/GongT/hosts-generator.git');
-build.dockerRunArgument('--volumes-from=hosts-generator');
