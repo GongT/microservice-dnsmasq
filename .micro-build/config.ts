@@ -38,5 +38,5 @@ build.volume('./etc/dnsmasq.d', '/etc/dnsmasq.d');
 
 build.disablePlugin(EPlugins.jenv);
 
-build.dependService('host-generator', 'http://github.com/GongT/hosts-generator.git');
-build.dockerRunArgument('--volumes-from=host-generator');
+build.dependService('hosts-generator', 'http://github.com/GongT/hosts-generator.git');
+build.dockerRunArgument('--volumes-from=hosts-generator');
