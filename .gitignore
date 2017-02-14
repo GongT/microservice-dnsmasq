@@ -11,5 +11,6 @@ npm-debug.log*
 coverage/
 typings
 !.*ignore
+!.gitinclude
 etc/dnsmasq.d
 ### <<< END MICRO-BUILD SECTION
