@@ -33,6 +33,8 @@ function is_running {
 
 trap finish EXIT
 
+mkdir -p /etc/dnsmasq.d/gen.d
+
 function watch { # watch_id events callback file[s]
 	local ARGS="$@"
 	local WATCHID=$1
