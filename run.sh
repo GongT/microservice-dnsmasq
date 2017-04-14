@@ -33,7 +33,22 @@ function is_running {
 
 trap finish EXIT
 
+# prepare
 mkdir -p /etc/dnsmasq.d/gen.d
+
+cat /etc/resolv.conf | \
+	grep -vE "nameserver\s+192\.168\." | \
+	grep -vE "nameserver\s+172\.17\." | \
+	grep -vE "nameserver\s+10\." | \
+	grep -vE "nameserver\s+127\." | \
+	grep -vE "nameserver\s+223\.5\.5\.5" | \
+	grep -vE "nameserver\s+8\.8\.8\.8" | \
+	grep -vE "^search" | \
+	grep -vE "^options" | \
+	tee /etc/resolv.dnsmasq
+echo "nameserver 223.5.5.5
+nameserver 8.8.8.8" | tee -a /etc/resolv.dnsmasq
+#prepare end
 
 function watch { # watch_id events callback file[s]
 	local ARGS="$@"
