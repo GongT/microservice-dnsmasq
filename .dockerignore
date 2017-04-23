@@ -1,25 +1,6 @@
 ### START MICRO-BUILD SECTION >>>
-# DO NOT EDIT THIS BY HAND
-.*
-*.tgz
-node_modules
-jspm_packages
-**/node_modules
-**/jspm_packages
-*.log
-npm-debug.log*
-coverage/
-typings
 *.md
+.*ignore
 Dockerfile
 *.Dockerfile
-build.config.ts
-!.micro-build/json-env-data.json
-!.jsonenv/_current_result.json.d.ts
-!.micro-build/docker/bin
-!.micro-build/docker/jspm-install
-!.micro-build/docker/npm-install
-!.micro-build/docker/package-json
-!.micro-build/docker/plugins
-etc/dnsmasq.d
-### <<< END MICRO-BUILD SECTION
+root/etc/dnsmasq.d/extra.d
