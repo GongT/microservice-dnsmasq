@@ -38,3 +38,31 @@ build.volume('./etc/dnsmasq.d', '/etc/dnsmasq.d');
 build.volume('/etc', './host-etc');
 
 build.disablePlugin(EPlugins.jenv);
+
+build.onConfig(() => {
+	const nics = require('os').networkInterfaces();
+	let ns = [];
+	console.log(JsonEnv.deploy)
+	Object.keys(JsonEnv.deploy).forEach((serverGroup) => {
+		if (serverGroup === 'forceServerId') {
+			return;
+		}
+		const server = JsonEnv.deploy[serverGroup];
+		const thisIs = server.machines.some((item) => {
+			return Object.values(nics).forEach((nic) => {
+				return nic.some((addr) => {
+					return addr.address === item.detect;
+				});
+			});
+		});
+		if (thisIs) {
+			ns = server.nameservers || [];
+			
+			return true;
+		}
+	});
+	ns = ns.concat('233.5.5.5', '8.8.8.8');
+	
+	helper.createTextFile(ns.map(addr => `nameserver ${addr}`).join('\n'))
+			.save('nameserver.conf');
+});

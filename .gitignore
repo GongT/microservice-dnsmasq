@@ -13,4 +13,5 @@ typings
 !.*ignore
 !.gitinclude
 etc/dnsmasq.d
+nameserver.conf
 ### <<< END MICRO-BUILD SECTION

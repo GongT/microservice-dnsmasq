@@ -46,8 +46,8 @@ cat /etc/resolv.conf | \
 	grep -vE "^search" | \
 	grep -vE "^options" | \
 	tee /etc/resolv.dnsmasq
-echo "nameserver 223.5.5.5
-nameserver 8.8.8.8" | tee -a /etc/resolv.dnsmasq
+
+cat nameserver.conf | tee -a /etc/resolv.dnsmasq
 #prepare end
 
 function watch { # watch_id events callback file[s]
