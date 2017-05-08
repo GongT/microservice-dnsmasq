@@ -42,7 +42,6 @@ build.disablePlugin(EPlugins.jenv);
 build.onConfig(() => {
 	const nics = require('os').networkInterfaces();
 	let ns = [];
-	console.log(JsonEnv.deploy)
 	Object.keys(JsonEnv.deploy).forEach((serverGroup) => {
 		if (serverGroup === 'forceServerId') {
 			return;
