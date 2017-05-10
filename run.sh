@@ -37,18 +37,19 @@ trap finish EXIT
 mkdir -p /etc/dnsmasq.d/gen.d
 
 cat /etc/resolv.conf | \
-	grep -vE "nameserver\s+192\.168\." | \
 	grep -vE "nameserver\s+172\.17\." | \
-	grep -vE "nameserver\s+10\." | \
 	grep -vE "nameserver\s+127\." | \
-	grep -vE "nameserver\s+223\.5\.5\.5" | \
-	grep -vE "nameserver\s+8\.8\.8\.8" | \
 	grep -vE "^search" | \
 	grep -vE "^options" | \
-	tee /etc/resolv.dnsmasq
+	cat > /etc/resolv.dnsmasq
 
-cat nameserver.conf | tee -a /etc/resolv.dnsmasq
+cat nameserver.conf >> /etc/resolv.dnsmasq
+echo "" >> /etc/resolv.dnsmasq
 #prepare end
+
+echo '=========/etc/resolv.dnsmasq=========='
+cat /etc/resolv.dnsmasq
+echo '=========/etc/resolv.dnsmasq=========='
 
 function watch { # watch_id events callback file[s]
 	local ARGS="$@"

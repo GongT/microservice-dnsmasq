@@ -23,7 +23,6 @@ build.systemInstallMethod('apk');
 build.systemInstall('bash', 'dnsmasq', 'inotify-tools');
 
 build.forwardPort(53, 'udp').publish(53);
-build.forwardPort(53, 'tcp').publish(53);
 
 build.startupCommand('./run.sh');
 build.shellCommand('bash');
@@ -60,7 +59,7 @@ build.onConfig(() => {
 			return true;
 		}
 	});
-	ns = ns.concat('233.5.5.5', '8.8.8.8');
+	ns = ns.concat('223.5.5.5', '8.8.8.8');
 	
 	helper.createTextFile(ns.map(addr => `nameserver ${addr}`).join('\n'))
 			.save('nameserver.conf');
