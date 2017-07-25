@@ -20,6 +20,7 @@ function finish {
 				echo "${PID_FILE} - not running"
 			fi
 		done
+		echo "${PARENT} - killing (parent)"
 		kill -- -${PARENT}
 		wait
 	fi
